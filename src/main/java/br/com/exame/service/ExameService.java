@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,20 +19,20 @@ public class ExameService {
     @Autowired
     private ExameRepository repository;
 
-    public void save(ExameDto exameDto) {
+    public void save(ExameDto exameDto) throws ParseException {
         repository.save(exameDto.toEntity());
     }
 
     public List<ExameDto> list() {
-        List<Exame> exames = repository.findAll(Sort.by(Sort.Direction.ASC, "paciente", "exame"));
+        List<Exame> exames = repository.findAll(Sort.by(Sort.Direction.ASC, "paciente" , "exame"));
         return exames.stream().map(ExameDto::new).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public void delete(ExameDto exameDto) {
-        repository.deleteById(exameDto.getId());
+        repository.deleteById(exameDto.getIdExame());
     }
 
-    public void update(ExameDto exameDto) {
+    public void update(ExameDto exameDto) throws ParseException {
         repository.save(exameDto.toEntity());
     }
 }

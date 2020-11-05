@@ -28,7 +28,7 @@ public class ExameController {
 			service.save(exameDto);
 			return new ResponseEntity<>("Salvo com sucesso!", HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>("Falha ao salvar!", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Falha ao salvar! " + e.getCause(), HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -38,7 +38,7 @@ public class ExameController {
 			List<ExameDto> exameList = service.list();
 			return new ResponseEntity<>(exameList, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>("Error" + e.getMessage(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Error " + e.getCause(), HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -48,7 +48,7 @@ public class ExameController {
 			service.delete(exameDto);
 			return new ResponseEntity<>("Excluido com sucesso", HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>("Falha ao excluir", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Falha ao excluir " + e.getCause(), HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -58,7 +58,7 @@ public class ExameController {
 			service.update(exameDto);
 			return new ResponseEntity<>("Sucesso ao atualizar", HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>("Falha ao atualizar", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Falha ao atualizar " + e.getCause(), HttpStatus.BAD_REQUEST);
 		}
 	}
 }

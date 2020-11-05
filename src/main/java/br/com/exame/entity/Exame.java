@@ -1,42 +1,37 @@
 package br.com.exame.entity;
 
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Exame {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String paciente;
+    private Long idExame;
 
     private String exame;
 
     private String resultado;
 
     private String observacao;
-    
-    private String data;
 
-    public Long getId() {
-        return this.id;
+    @Column(nullable = false)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date data;
+
+    public Long getIdExame() {
+        return this.idExame;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPaciente() {
-        return this.paciente;
-    }
-
-    public void setPaciente(String paciente) {
-        this.paciente = paciente;
+    public void setIdExame(Long idExame) {
+        this.idExame = idExame;
     }
 
     public String getExame() {
@@ -63,21 +58,19 @@ public class Exame {
         this.observacao = observacao;
     }
 
-    public String getData() {
+    public Date getData() {
         return this.data;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setData(Date data) {
+
+        if (data.after(new Date())) {
+            this.data = data;
+        }
     }
 
-    public Exame id(Long id) {
-        this.id = id;
-        return this;
-    }
-
-    public Exame paciente(String paciente) {
-        this.paciente = paciente;
+    public Exame id(Long idExame) {
+        this.idExame = idExame;
         return this;
     }
 
@@ -96,11 +89,9 @@ public class Exame {
         return this;
     }
 
-    public Exame data(String data) {
+    public Exame data(Date data) {
         this.data = data;
         return this;
     }
-
-
 
 }
